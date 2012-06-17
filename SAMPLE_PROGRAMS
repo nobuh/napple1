@@ -1,0 +1,22 @@
+SAMPLE PROGRAMS
+===============
+
+STARTREK
+--------
+Original code is downloaded from http://www.brielcomputers.com/files/games.zip
+How to start it.
+
+	./napple1
+	Shift + L			(Load core)
+	Load core. Filename: startrek	(core/startrek)
+	E2B3R 				(re-entry to BASIC)
+	RUN				(start program in BASIC)
+
+KRUSADER
+--------
+Replica1's assembler. It is in startrek rom also. 
+
+	./napple1
+	Shift + L			(Load core)
+	Load core. Filename: startrek	(core/startrek)
+	F000R		(cold start KRUSADER)

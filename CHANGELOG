@@ -1,0 +1,81 @@
+CHANGELOG
+=========
+
+2.2.1
+- Fix leaking memory on fd of loadBasic() function
+- Fix some coding style issue in memory.c and msgbuf.c 
+
+2.2
+- Add Cygwin (with cygwin base, make, gcc4 and libncurses-dev) support
+- Fix Hung after Hardreset. 
+
+2.1
+- If a loading core has a value on the 0xF000 area, the mode
+  should be better change to 32K mode. 
+- Update SAMPLE_PROGRAMS file. 
+
+2.0
+- Remove TODO list. 
+- Synchronize video output for ideal 60 Hz screen refresh.
+- Remove terminalSpeed configuration. Now it is 60Hz only.
+- Remove replica1 config in napple1.cfg and No more napple1.cfg.
+- Mode change command filp 8K memory mode & 32K memory mode
+- Delete unused charmap.rom
+- Rename core/STARTREK to core/startrek
+
+1.0
+- Filename input for Load core.
+- Confirmation to load basic to ram.
+- Command list on the message buffer.
+- Remove default core and basic.rom loading function.
+- TODO file added.
+
+0.6 
+- March 29, 2010 
+- Modify makefile as using macros for common options.
+- Add #define _XOPEN_SOURCE 500 to prevent compile warning of usleep. 
+- Add filename input feature for 'D'ump core.  
+
+0.5 
+- March 25, 2010
+- Fix time tic in m6502. To get milli sec current time, use gettimeofday.
+- Wall option at compile. So, several fix in m6502.c to get rid of warnings.  
+
+0.4
+- March 25, 2010
+- Fix some descriptions in READE and SAMPLE_PROGRAMS
+- Use independant ncurses windows for main screen and message buffer, 
+  instead of a single stdscr. The new screen layoht is following.
+  During loading rom and core, printing some messages to the buffer.
+
+	+-----------------------------+
+	|(0,0)                 (0, 40)|
+	|          screen             |
+	|                             |
+	|(23,0)                (23,40)|
+	+-----------------------------+
+	|(24,0) message buffer (24,40)|
+	+-----------------------------+
+
+0.3
+- March 21, 2010
+- Update README 
+- Allow smaller lines/colums terminal
+
+0.2
+- March 18, 2010
+- Delete automatic save memory function during quit.
+- Shift + D "Dump core"
+- Dump & Load core on file core/dumped
+- Add sample core file in core directory
+	
+0.1
+- March 16, 2010
+- Fixed old program name nPom1 to napple1.
+- napple1 now includes Pom1 rom.
+- if napple1 started with normal mode, and if core file 
+  isn't existing, load rom/basic.rom to ram 0xE000. 
+
+0.0 
+- March 15, 2010
+- Derived from Pom1. First alpha release
