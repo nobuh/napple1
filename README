@@ -1,0 +1,120 @@
+napple1 is an Apple 1 emulator using ncurses, ported from the SDL version 
+Pom1 emulafor.. If you have some questions, please visit projects home page 
+http://sourceforge.net/projects/napple1 or mail to nobuhatano@gmail.com
+
+How to install on cygwin
+=========================
+0. Setup cygwin (base) and make, gcc4, libncurses-dev
+   and follow Linux procedure. 
+
+How to install on Linux
+========================
+1. Download latest source package nappple1-<n>.<n>.tar.gz 
+   and extract it.
+
+2. Build
+	cd napple1/src
+	make
+	cd ..
+3. Run 
+	./napple1
+
+How to uninstall
+================
+	cd napple1/src
+	make clean
+
+How to use programs on napple1
+==============================
+
+- Key map
+
+In normal terminals, if you press 'D' key, it will be echoed as 'd' on screen.
+And press 'Shift + D' prints 'D' on screen. Shift key works to flip caps. 
+
+However, napple1, if you press 'D' key, it will be echoed 'D'. All letters 
+you can type is upper case only. Because original apple1 has a limit to do so.
+And shift key works like a control key in napple1.
+
+- Cold start Apple 1 Basic
+
+type E000R<enter>
+
+- Warm start Apple 1 Basic
+
+type E2B3R<enter>
+
+- Emulator commands
+
+Command      Key        Description
+--------------------------------------------------------------------
+Basic load   Shidt + B  Load rom/basic.rom to ram
+Dump core    Shift + D  Dump memory to core/_file name_ 
+Load core    Shift + L  Load memory from core/_file name_ 
+Reset        Shift + R  Reset the emulator
+Hard reset   Shidt + H  Reset & Clear memory
+Quit         Shidt + Q  Quit the emulator
+Mode         Shift + M  Mode change 8KB & 32KB ram mode
+
+- Load / Save programs
+
+To load or save program, please load or dump entire 64kb memory.
+
+- napple1 memory map in memory.c
+
+/*
+ * Memory maap of napple1
+ * 
+ * Apple I 8K mode & napple1 64K mode, common usage
+ * -----------------------------------------------------------------------
+ * $0000           Ststem & User Space 
+ * $0200 - $027F   Input Buffer used by monitor
+ * $0FFF
+ * -----------------------------------------------------------------------
+ * $D010	KBD	Keyboard input register. b7 is always 1 by hardware.
+ * 		Read KBD will automatcically clear KBDCR's b7.
+ * $D011	KBDCR	When key is pressed, b7 is set by hardware.
+ * $D012	DSP	Bit b6..b0 is output character for the terminal.
+ *	        Writing to DSP will set b7 by hardware.
+ *              The termianl clear b7 after the character is accepted.
+ * $D013	DSPCR	Unused.
+ * -----------------------------------------------------------------------
+ * $E000        Apple I Integer BASIC
+ * $E2B3        Re-entry address
+ * $EFFF
+ * -----------------------------------------------------------------------
+ * $FF00        Monitor
+ * $FFEF	Echo
+ * $FFFF	
+ * ----------------------------------------------------------------------- 
+ */
+/* Apple I 8K mode memory map
+ * --------------------------------- 
+ * Start Type
+ * addr
+ * --------------------------------- 
+ * $0000 4KB RAM
+ * $1000 unused
+ * $D010 Display and Keyboard I/O
+ * $D014 unused
+ * $E000 4KB RAM
+ * $F000 unused
+ * $FF00 256B ROM^ (Woz Monitor)
+ * ---------------------------------
+ * ^ ROM can be written by Load core  
+ */
+/* napple I 32K mode memory map
+ * --------------------------------- 
+ * Start Type
+ * addr
+ * --------------------------------- 
+ * $0000 32K RAM
+ * $8000 unused
+ * $D010 Display and Keyboard I/O
+ * $D014 unused
+ * $E000 8K ROM^ 
+ * ---------------------------------
+ * ^ ROM can be written by Load core  
+ */
+
+
