@@ -1,6 +1,9 @@
 CHANGELOG
 =========
 
+2.3
+- ROM can be loaded from the directory of ROMDIR environment variable.
+
 2.2.1
 - Fix leaking memory on fd of loadBasic() function
 - Fix some coding style issue in memory.c and msgbuf.c 

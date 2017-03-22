@@ -37,10 +37,13 @@ int main()
 	attron(A_REVERSE);
 	init_screen();
 	init_msgbuf();
-		
+
 	/* initialize apple1 screen */
 	resetScreen();
 	setSpeed(1000000, 50); /* 1M Hz. Sync emulation every 50 msec */
+
+    /* set Rom Files */
+    setRomFiles();
 
 	/* Load monitor rom */
 	if (!loadMonitor()) {

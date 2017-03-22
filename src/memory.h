@@ -16,6 +16,8 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
+#define FNAME_LEN_MAX   1024
+
 void loadBasic(void);
 int loadMonitor(void);
 void resetMemory(void);
@@ -25,3 +27,4 @@ void dumpCore(void);
 int loadCore(void);
 int memMode(void);
 void flipMode(void);
+void setRomFiles(void);

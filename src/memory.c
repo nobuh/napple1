@@ -84,9 +84,13 @@
 #include "msgbuf.h"
 
 #define MEMMAX 0xFFFF
+#define FNAME_LEN_MAX 1024
 
 static unsigned char mem[65536];
 static int mode = 8; /* 8 = Apple I 8K mode, 32 = napple1 32K mode */
+
+char rombasic[FNAME_LEN_MAX];
+char rommonitor[FNAME_LEN_MAX];
 
 void flipMode(void)
 {
@@ -106,11 +110,11 @@ int memMode(void)
 
 void loadBasic(void)
 {
-	FILE *fd = fopen("rom/basic.rom", "rb");
+	FILE *fd = fopen(rombasic, "rb");
 	char input[MSG_LEN_MAX +1];
 	
 	if (!fd) {
-		gets_msgbuf("Failed to open rom/basic.rom: ", input);
+		gets_msgbuf("Failed to open basic.rom", input);
 		return;
 	}
 
@@ -130,7 +134,7 @@ void loadBasic(void)
 
 int loadMonitor(void)
 {
-	FILE *fd = fopen("rom/monitor.rom", "rb");
+	FILE *fd = fopen(rommonitor, "rb");
 
 	if (fd) {
 		fread(&mem[0xFF00], 1, 256, fd);
@@ -246,3 +250,25 @@ int loadCore(void)
 	}
 	return 1;
 }
+
+/* set ROM file name using ROMDIR env variable
+ * default path is ./rom 
+ * need to be called before loadBasic() and loadMonitor()
+ */
+void setRomFiles(void)
+{
+    char env[FNAME_LEN_MAX];
+    char *p;
+
+    strcpy(rombasic, "rom/basic.rom");
+    strcpy(rommonitor, "rom/monitor.rom");
+
+    p = env;
+    if (getenv("ROMDIR")) {
+        p = getenv("ROMDIR");
+        sprintf(rombasic, "%s/basic.rom", p);
+        sprintf(rommonitor, "%s/monitor.rom", p);
+    } 
+}
+
+
