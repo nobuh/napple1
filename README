@@ -19,7 +19,7 @@ How to install on Linux
 3. Run 
 	./napple1
 
-Optional ROM Directory
+ROM Directory
 ======================
 napple1 contain basic.rom and monitor.rom files on
 the ./rom directory. However, If you want to put 

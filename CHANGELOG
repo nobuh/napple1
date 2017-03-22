@@ -1,7 +1,7 @@
 CHANGELOG
 =========
 
-2.3
+2.3.0
 - ROM can be loaded from the directory of ROMDIR environment variable.
 
 2.2.1
