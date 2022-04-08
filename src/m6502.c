@@ -40,7 +40,7 @@
 #define Z 0x02
 #define C 0x01
 
-static unsigned char accumulator, xRegister, yRegister, statusRegister = 0x24, stackPointer;
+static unsigned char accumulator, xRegister, yRegister, statusRegister = I, stackPointer;
 static int IRQ = 0, NMI = 0;
 static unsigned short programCounter;
 static unsigned char btmp;
@@ -101,7 +101,7 @@ static void popProgramCounter(void)
 static void handleIRQ(void)
 {
 	pushProgramCounter();
-	memWrite((unsigned short)(0x100 + stackPointer), (unsigned char)(statusRegister & ~0x10));
+	memWrite((unsigned short)(0x100 + stackPointer), (unsigned char)((statusRegister & ~B) | M));
 	stackPointer--;
 	statusRegister |= I;
 	programCounter = memReadAbsolute(0xFFFE);
@@ -111,7 +111,7 @@ static void handleIRQ(void)
 static void handleNMI(void)
 {
 	pushProgramCounter();
-	memWrite((unsigned short)(0x100 + stackPointer), (unsigned char)(statusRegister & ~0x10));
+	memWrite((unsigned short)(0x100 + stackPointer), (unsigned char)((statusRegister & ~B) | M));
 	stackPointer--;
 	statusRegister |= I;
 	NMI = 0;
@@ -190,7 +190,7 @@ static void Ind(void)
 
 static void IndZeroX(void)
 {
-	ptr = xRegister + memRead(programCounter++);
+	ptr = (xRegister + memRead(programCounter++)) & 0xFF;
 	op = memRead(ptr);
 	op += memRead((unsigned short)((ptr + 1) & 0xFF)) << 8;
 	cycles += 3;
@@ -319,7 +319,7 @@ static void ADC(void)
 
 		tmp = (Op1 & 0x0F) + (Op2 & 0x0F) + (statusRegister & C ? 1 : 0);
 		accumulator = tmp < 0x0A ? tmp : tmp + 6;
-		tmp = (Op1 & 0xF0) + (Op2 & 0xF0) + (tmp & 0xF0);
+		tmp = (Op1 & 0xF0) + (Op2 & 0xF0) + (accumulator & 0xF0);
 		
 		if (tmp & 0x80)
 			statusRegister |= N;
@@ -617,7 +617,7 @@ static void PHA(void)
 
 static void PHP(void)
 {
-	memWrite((unsigned short)(0x100 + stackPointer), statusRegister);
+	memWrite((unsigned short)(0x100 + stackPointer), statusRegister | B | M);
 	stackPointer--;
 	cycles++;
 }
@@ -641,7 +641,7 @@ static void BRK(void)
 {
 	pushProgramCounter();
 	PHP();
-	statusRegister |= B;
+	statusRegister |= I;
 	programCounter = memReadAbsolute(0xFFFE);
 	cycles += 3;
 }
