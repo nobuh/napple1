@@ -1,6 +1,18 @@
 CHANGELOG
 =========
 
+2.4.0 mtleblanc's contribution:
+- Indirect X zero page addressing should always wrap and stay on zero page
+- BRK should disable interrupts
+- ADC in decimal mode should carry between nibbles based on adjusted,
+  not original values.
+- Writes of status register to the stack should always set M and should
+  set B on BRK/PHP and ~B on IRQ/NMI
+- Given the above, status register does not need to track M or B bits,
+  removed from initialization.
+- Found and tested against
+  https://github.com/Klaus2m5/6502_65C02_functional_tests
+
 2.3.0
 - ROM can be loaded from the directory of ROMDIR environment variable.
 
