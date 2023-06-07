@@ -45,7 +45,7 @@ void print_msgbuf(char *s)
 			"%-40s", 
 			s);
 	werase(msgbuf);
-	wprintw(msgbuf, msg);
+	wprintw(msgbuf, "%s", msg);
 	wrefresh(msgbuf);
 }
 
