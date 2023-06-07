@@ -25,5 +25,5 @@ void outputDsp(unsigned char dsp);
 char getch_screen(void);
 void select_screen(void);
 
-int nrow, ncol;
+extern int nrow, ncol;
 
