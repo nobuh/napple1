@@ -36,6 +36,8 @@ static int indexX, indexY;
 static WINDOW *screen;
 static long long interval_start; /* interval start time in u sec */
 
+int nrow, ncol;
+
 char getch_screen(void)
 {
 	return (char)wgetch(screen);
