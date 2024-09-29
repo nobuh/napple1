@@ -1,7 +1,8 @@
 # napple1 makefile 
 # Nobu Hatano <nobuhatano@gmail.com>
 CC = gcc
-CFLAGS = -Wall -ansi
+CFLAGS = -Wall
+# CFLAGS = -Wall -ansi
 THREAD = -lpthread
 
 # Support Linux and Cygwin

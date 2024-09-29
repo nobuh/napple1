@@ -162,7 +162,30 @@ unsigned char memRead(unsigned short address)
 	if (address == 0xD012)
 		return readDsp();
 	if (address == 0xD011)
-		return readKbdCr();
+	{
+		unsigned char v = readKbdCr();
+		extern FILE *kbd_txt;
+		if (!(v & 0x80) && kbd_txt)
+		{
+			// Read on char from file
+			int c = fgetc(kbd_txt);
+			if (c!=EOF)
+			{
+				if (c=='\n')
+					c = 0x0d;
+				if (v>='a' && v<='z')
+					c = c - 'a' + 'A';
+				writeKbd((unsigned char)(c + 0x80));
+				writeKbdCr(0xA7); 
+			}
+			else
+			{
+				fclose(kbd_txt);
+				kbd_txt = NULL;
+			}
+		}
+		return v;
+	}
 	if (address == 0xD010)
 		return readKbd();
 

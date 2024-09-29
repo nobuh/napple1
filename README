@@ -1,3 +1,16 @@
+# Fork of napple1
+
+This forks enables to emulate keyboard entry on the apple1
+
+This kludge is done by creating a "KBD.TXT" file. When pressing "shift-K",
+the keyboard I/O will be replaced by the content of this file.
+
+This have been done to be able to load basic programs and use the 'dump"
+features to transfer them to binary files.
+
+
+
+
 napple1 is an Apple 1 emulator using ncurses, ported from the SDL version 
 Pom1 emulafor. If you have some questions, please report it as an issue. 
 

@@ -25,6 +25,10 @@
 #include "keyboard.h"
 #include "screen.h"
 
+#include <stdio.h>
+
+FILE *kbd_txt;
+
 int handleInput(void)
 {
 	char tmp;
@@ -32,6 +36,12 @@ int handleInput(void)
 	tmp = '\0';
 	while ( (tmp = getch_screen()) == '\0' )
 		;
+	if (tmp=='K')
+	{
+			/* We open the "KBD.TXT" file if it exists */
+		kbd_txt = fopen("KBD.TXT", "r");
+		return 1;
+	}
 	if (tmp == 'B') {
 		loadBasic();
 		resetPia6820();
