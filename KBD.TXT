@@ -1,1 +1,0 @@
-Change content of the "kbd.txt" file to change auto-keyboard input.
