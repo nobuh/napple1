@@ -1,8 +1,3 @@
-# Fork of napple1
-
-This forks enables to emulate keyboard entry on the apple1. When pressing "shift-K",
-the keyboard I/O will be replaced by the content of the 'AUTOTYPING.TXT' file. (note: this have been done to be able to type in basic programs and use the 'dump" features to transfer them to binary files).
-
 napple1 is an Apple 1 emulator using ncurses, ported from the SDL version 
 Pom1 emulafor. If you have some questions, please report it as an issue. 
 
@@ -64,7 +59,7 @@ type E2B3R<enter>
 - Emulator commands
 
 Command      Key        Description
---------------------------------------------------------------------
+---------------------------------------------------------------------------
 Basic load   Shidt + B  Load rom/basic.rom to ram
 Dump core    Shift + D  Dump memory to core/_file name_ 
 Load core    Shift + L  Load memory from core/_file name_ 
@@ -72,6 +67,7 @@ Reset        Shift + R  Reset the emulator
 Hard reset   Shidt + H  Reset & Clear memory
 Quit         Shidt + Q  Quit the emulator
 Mode         Shift + M  Mode change 8KB & 32KB ram mode
+             Shift + K  Automatically type in AUTOTYPING.TXT file if present
 
 - Load / Save programs
 

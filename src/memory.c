@@ -162,8 +162,7 @@ unsigned char memRead(unsigned short address)
 		return readDspCr();
 	if (address == 0xD012)
 		return readDsp();
-	if (address == 0xD011)
-	{
+	if (address == 0xD011) {
 		unsigned char v = readKbdCr();
 		if (!(v & 0x80))
 			nextAutotyping();
