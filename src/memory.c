@@ -82,6 +82,7 @@
 #include "memory.h"
 #include "screen.h"
 #include "msgbuf.h"
+#include "keyboard.h"
 
 #define MEMMAX 0xFFFF
 #define FNAME_LEN_MAX 1024
@@ -161,8 +162,12 @@ unsigned char memRead(unsigned short address)
 		return readDspCr();
 	if (address == 0xD012)
 		return readDsp();
-	if (address == 0xD011)
-		return readKbdCr();
+	if (address == 0xD011) {
+		unsigned char v = readKbdCr();
+		if (!(v & 0x80))
+			nextAutotyping();
+		return v;
+	}
 	if (address == 0xD010)
 		return readKbd();
 

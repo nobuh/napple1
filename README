@@ -59,7 +59,7 @@ type E2B3R<enter>
 - Emulator commands
 
 Command      Key        Description
---------------------------------------------------------------------
+---------------------------------------------------------------------------
 Basic load   Shidt + B  Load rom/basic.rom to ram
 Dump core    Shift + D  Dump memory to core/_file name_ 
 Load core    Shift + L  Load memory from core/_file name_ 
@@ -67,6 +67,7 @@ Reset        Shift + R  Reset the emulator
 Hard reset   Shidt + H  Reset & Clear memory
 Quit         Shidt + Q  Quit the emulator
 Mode         Shift + M  Mode change 8KB & 32KB ram mode
+             Shift + K  Automatically type in AUTOTYPING.TXT file if present
 
 - Load / Save programs
 

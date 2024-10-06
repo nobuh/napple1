@@ -25,6 +25,43 @@
 #include "keyboard.h"
 #include "screen.h"
 
+#include <stdio.h>
+
+FILE *autotyping_file = NULL;
+
+int startAutotyping(const char *filename)
+{
+	if (autotyping_file)
+		stopAutotyping();
+	autotyping_file = fopen(filename, "r");
+	return !!autotyping_file;
+}
+
+int nextAutotyping(void)
+{
+	if (!autotyping_file)
+		return -1;
+	int c = fgetc(autotyping_file);
+	if (c!=EOF) {
+		if (c=='\n')
+			c = 0x0d;
+		if (c>='a' && c<='z')
+			c = c - 'a' + 'A';
+		writeKbd((unsigned char)(c + 0x80));
+		writeKbdCr(0xA7); 
+	}
+	else
+		stopAutotyping();
+	return c;
+}
+
+void stopAutotyping(void)
+{
+	if (autotyping_file)
+		fclose(autotyping_file);
+	autotyping_file = NULL;
+}
+
 int handleInput(void)
 {
 	char tmp;
@@ -32,7 +69,11 @@ int handleInput(void)
 	tmp = '\0';
 	while ( (tmp = getch_screen()) == '\0' )
 		;
-	if (tmp == 'B') {
+	if (tmp=='K') {
+		if (startAutotyping("AUTOTYPING.TXT"))
+			return 1;
+	}
+	else if (tmp == 'B') {
 		loadBasic();
 		resetPia6820();
 		resetM6502();
